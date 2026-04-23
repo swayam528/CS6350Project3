@@ -223,7 +223,7 @@ def query_top_outdegree(graph: GraphFrame, k: int = 5) -> DataFrame:
     return (
         graph.outDegrees
         .join(graph.vertices, on="id", how="left")
-        .select("id", "name", "ml_target", "outDegree")
+        .select("id", "name", "outDegree")
         .orderBy(F.desc("outDegree"), F.asc("id"))
         .limit(k)
     )
@@ -244,7 +244,7 @@ def query_top_indegree(graph: GraphFrame, k: int = 5) -> DataFrame:
     return (
         graph.inDegrees
         .join(graph.vertices, on="id", how="left")
-        .select("id", "name", "ml_target", "inDegree")
+        .select("id", "name", "inDegree")
         .orderBy(F.desc("inDegree"), F.asc("id"))
         .limit(k)
     )
@@ -274,7 +274,7 @@ def query_top_pagerank(graph: GraphFrame, k: int = 5) -> DataFrame:
     )
     return (
         ranked.vertices
-        .select("id", "name", "ml_target", "pagerank")
+        .select("id", "name", "pagerank")
         .orderBy(F.desc("pagerank"), F.asc("id"))
         .limit(k)
     )
@@ -322,7 +322,7 @@ def query_top_triangles(graph: GraphFrame, k: int = 5) -> DataFrame:
     triangles = graph.triangleCount()
     return (
         triangles
-        .select("id", "name", "ml_target", F.col("count").alias("triangle_count"))
+        .select("id", "name", F.col("count").alias("triangle_count"))
         .withColumn("_tiebreak", F.rand(seed=TRIANGLE_TIE_BREAK_SEED))
         .orderBy(F.desc("triangle_count"), F.asc("_tiebreak"))
         .drop("_tiebreak")

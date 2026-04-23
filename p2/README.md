@@ -37,13 +37,21 @@ Tested with Ubuntu on WSL2. Any Spark 3.5 + Python 3.10+ environment works.
 From inside this folder (`p2/`):
 
 ```bash
+cd p2
 spark-submit \
   --packages graphframes:graphframes:0.8.3-spark3.5-s_2.12 \
   part2.py
 ```
 
+> If you forget to `cd` into `p2/` first, `spark-submit` will report
+> `python3: can't open file '.../part2.py': [Errno 2] No such file or directory`
+> because `part2.py` lives inside the `p2/` folder.
+
 That's it. All five queries (2.3a through 2.3e) run end-to-end and write
-their results under `./output/`.
+their results under `./output/`. End-to-end runtime is roughly **5–15
+minutes** on a laptop; PageRank finishes quickly, but Connected Components
+and (especially) Triangle Count are the slow parts. The job is done when
+you see `[done] All query outputs written under: ...` in the log.
 
 ### Optional environment variables
 
@@ -95,6 +103,12 @@ After the run you should see in the driver log:
 
 ## Notes on the results
 
+- **Output columns** — every result file has columns `id`, `name`, and the
+  query-specific metric (`outDegree`, `inDegree`, `pagerank`,
+  `num_vertices`, or `triangle_count`). The vertex `ml_target` attribute
+  is carried in the GraphFrame (so 2.2 still satisfies "property graph")
+  but intentionally omitted from the result files because the spec doesn't
+  ask for it.
 - **2.3a vs 2.3b** — since musae-github is undirected and we materialise both
   directions, every vertex has `indegree == outdegree`. The two ranking files
   therefore show the same top 5. That's the correct answer given the spec
@@ -102,7 +116,11 @@ After the run you should see in the driver log:
   separate because the spec asks for both queries as independent outputs.
 - **2.3c PageRank** — run with `resetProbability=0.15` (canonical 0.85
   damping factor) and `maxIter=10`. 10 iterations give stable top-k rankings
-  for this graph size.
+  for this graph size. Note: GraphFrames returns *unnormalised* PageRank
+  scores — every vertex starts with rank 1 (not 1/N), so the sum over all
+  vertices is ≈ N = 37,700 and individual scores can be much greater than 1.
+  The ranking is identical to the textbook normalised form; divide by
+  37,700 if you want probability-style values in `[0, 1]`.
 - **2.3d Connected Components** — requires a checkpoint directory, which the
   script sets up automatically under `P2_WORK_DIR/checkpoints`.
 - **2.3e Triangle Count** — ties are broken with a seeded `F.rand()`

@@ -1,0 +1,5 @@
+2.3d Top 5 connected components by vertex count
+===============================================
+component | num_vertices
+----------+-------------
+0         | 37700       
