@@ -136,3 +136,85 @@ After the run you should see in the driver log:
 | `part2.py`  | Single spark-submit entrypoint (2.1 + 2.2 + 2.3a–e)     |
 | `README.md` | This file                                               |
 | `output/`   | Query results, produced at runtime                      |
+
+
+---
+
+## outputs
+
+Musae-Github Network Analysis:
+
+We used analyzed the **musae-github** social network from SNAP with Spark GraphFrames.
+
+- Dataset page: https://snap.stanford.edu/data/github-social.html
+- Archive (downloaded automatically at runtime): https://snap.stanford.edu/data/git_web_ml.zip
+- ~37,700 GitHub developers, ~289,003 mutual-follower edges (undirected),
+  each doubled into two directed edges per the assignment spec.
+- Tested with Ubuntu on WSL2. Any Spark 3.5 + Python 3.10+ environment works.
+
+
+2.3a Top 5 nodes by outdegree (outgoing edges)
+==============================================
+id    | name              | outDegree
+------+-------------------+----------
+31890 | dalinhuang99      | 9458     
+27803 | nfultz            | 7085     
+35773 | addyosmani        | 3324     
+19222 | Bunlong           | 2958     
+13638 | gabrielpconceicao | 2468     
+
+>> Very simple count of the number of accounts these users follow a.k.a. the outdegree in this case. This lists the top 5 users with most outgoing connections. From this we can also infer they are active users, part of a large community on GitHub.
+
+
+2.3b Top 5 nodes by indegree (incoming edges)
+=============================================
+id    | name              | inDegree
+------+-------------------+---------
+31890 | dalinhuang99      | 9458    
+27803 | nfultz            | 7085    
+35773 | addyosmani        | 3324    
+19222 | Bunlong           | 2958    
+13638 | gabrielpconceicao | 2468    
+
+>> Very simple count of the number of followers each has a.k.a. the indegree in this case. These the are most popular users in terms of follower count or well-known and well connected users.
+
+
+2.3c Top 5 nodes by PageRank (resetProbability=0.15, maxIter=10)
+================================================================
+id    | name              | pagerank          
+------+-------------------+-------------------
+31890 | dalinhuang99      | 634.0502986779188 
+27803 | nfultz            | 433.4045041751695 
+35773 | addyosmani        | 190.0493832173293 
+19222 | Bunlong           | 178.00658569996676
+13638 | gabrielpconceicao | 147.84127656784105
+
+>> Ran the PageRank algorithm to determine the most well-known/popular/influential GitHub users based on their connections (follows/following vs followers). Here we are not just worried about the count of their connections but their value or influence as well. High scores indicate a well connect user that is also well connected to other influential users. In other words, these users are part of a very popular group or highly influential and close-knit/well-known community of GitHub like an upper echelon of its users by account.
+
+
+2.3d Top 5 connected components by vertex count
+===============================================
+component | num_vertices
+----------+-------------
+0         | 37700       
+
+>> The number of components is 1 since all users are connection each other at least once in this graph and can be reachable from each other. Connected components are parts or subgraphs that have a connection between all its nodes regardless of the length of the paths to reach each. If a subgraph doesn’t have any connection to another subgraph, they are separate components. However, in our case, the GitHub community seems to be all connected overall.
+
+
+2.3e Top 5 vertices by triangle count (ties broken randomly)
+============================================================
+id    | name              | triangle_count
+------+-------------------+---------------
+27803 | nfultz            | 80286         
+31890 | dalinhuang99      | 63205         
+19222 | Bunlong           | 27873         
+35773 | addyosmani        | 22758         
+13638 | gabrielpconceicao | 19762         
+
+>> Triangle counts are counts of 3 mutually connected individual GitHub accounts. (ex: A, B, C have connections A  B, A  C, & B  C). These users have the most triangle count connections or, in other words, have tight community connections to fellow GitHub users and not just a lot of followers.
+
+
+
+
+
+

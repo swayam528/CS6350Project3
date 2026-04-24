@@ -160,6 +160,10 @@ python generate_charts.py
 | [requirements.txt](requirements.txt)               | Python dependencies                                            |
 | [structured_kafka_wordcount.py](structured_kafka_wordcount.py) | Unmodified Apache reference example, included for reference |
 
+
+Note: Future works may include improving word capture and tuning spaCy output/filtering (ex: re-evaluate "date" importance/relevance and remove or add more context)
+      We also may add more context in general but need an updated infrastructure to handle and dislay it
+
 ---
 
 # Part 2 — GraphFrames analysis of the musae-github network
