@@ -1,0 +1,9 @@
+2.3a Top 5 nodes by outdegree (outgoing edges)
+==============================================
+id    | name              | outDegree
+------+-------------------+----------
+31890 | dalinhuang99      | 9458     
+27803 | nfultz            | 7085     
+35773 | addyosmani        | 3324     
+19222 | Bunlong           | 2958     
+13638 | gabrielpconceicao | 2468     
