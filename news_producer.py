@@ -42,7 +42,7 @@ from newsapi import NewsApiClient
 load_dotenv()
 
 # ── Configuration ──────────────────────────────────────────────────────────────
-API_KEY        = os.environ.get("API_KEY", "864886f839ee48219caf2bf41dcd108a")
+API_KEY        = os.environ.get("API_KEY")
 TOPIC          = "news-raw"
 POLL_INTERVAL  = 60          # seconds between NewsAPI calls
 PAGE_SIZE      = 100         # max articles per API call (NewsAPI hard limit)
