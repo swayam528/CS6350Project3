@@ -108,17 +108,7 @@ Open Kibana at http://localhost:5601, navigate to the printed dashboard URL, and
 
 ---
 
-### Step 5 — Generate Snapshot Bar Charts
-
-To generate the four interval bar charts (15 / 30 / 45 / 60 minutes) from captured listener data:
-
-```bash
-python generate_charts.py
-```
-
-Output PNGs are saved to the `part1results/` directory.
-
----
+### All screenshots for part 1 with 15 minute intervals are stored in /part1results 
 
 ### File Reference
 
