@@ -136,7 +136,10 @@ All four bar-plot snapshots are stored in [`part1results/`](part1results/).
 | `requirements.txt` | Python dependencies |
 | `part2.py` | Single spark-submit entrypoint for Part 2 (2.1 + 2.2 + 2.3a–e) |
 
-Part 2 — GraphFrames analysis of the musae-github network
+
+
+
+## Part 2: GraphFrames analysis of the musae-github network
 See the **Part 2 — Additional details** and **Part 2 outputs and analysis** sections below for full details.
 
 Summary of the workflow:
@@ -160,7 +163,7 @@ undirected edges), and runs all five queries from Section 2.3:
 | 2.3e  | `part2_output/2_3e_top_triangles.txt`      | Top 5 vertices by triangle count (ties broken with seeded rand) |
 
 
-## Part 2 — Additional details
+### Part 2 — Additional details
 
 The following sections are merged in from the old `p2/README.md` so the
 project has a single readme.
