@@ -345,7 +345,7 @@ def build_spark() -> SparkSession:
 def main() -> int:
     work_dir = os.environ.get("P2_WORK_DIR") or tempfile.mkdtemp(prefix="p2_musae_")
     output_dir = os.environ.get(
-        "P2_OUTPUT_DIR", os.path.join(os.getcwd(), "output")
+        "P2_OUTPUT_DIR", os.path.join(os.getcwd(), "part2_output")
     )
     os.makedirs(output_dir, exist_ok=True)
     print(f"[init] work_dir   = {work_dir}")
