@@ -34,9 +34,12 @@ import sys
 import time
 from datetime import datetime, timezone
 
+from dotenv import load_dotenv
 from kafka import KafkaProducer
 from kafka.errors import NoBrokersAvailable
 from newsapi import NewsApiClient
+
+load_dotenv()
 
 # ── Configuration ──────────────────────────────────────────────────────────────
 API_KEY        = os.environ.get("API_KEY", "864886f839ee48219caf2bf41dcd108a")
@@ -83,14 +86,21 @@ def article_to_text(article: dict) -> str:
 
 
 def fetch_headlines(newsapi: NewsApiClient, query: str) -> list:
-    """Return articles from get_everything for the given query."""
+    """Return articles from get_everything, falling back to top-headlines on error."""
     try:
         response = newsapi.get_everything(
-            q=query,
+            q=str(query),
             language="en",
             sort_by="publishedAt",
             page_size=PAGE_SIZE,
         )
+        if response.get("status") != "ok":
+            raise ValueError(response.get("message", "non-ok status"))
+        return response.get("articles") or []
+    except Exception as exc:
+        print(f"[producer] get_everything failed ({exc}), falling back to top-headlines", file=sys.stderr)
+    try:
+        response = newsapi.get_top_headlines(language="en", page_size=PAGE_SIZE)
         return response.get("articles") or []
     except Exception as exc:
         print(f"[producer] NewsAPI error: {exc}", file=sys.stderr)
