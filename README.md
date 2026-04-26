@@ -108,7 +108,21 @@ Open Kibana at http://localhost:5601, navigate to the printed dashboard URL, and
 
 ---
 
-### All screenshots for part 1 with 15 minute intervals are stored in /part1results 
+### Part 1 screenshots — top 10 named entities at 15-minute intervals
+
+All four bar-plot snapshots are stored in [`part1results/`](part1results/).
+
+#### After 15 minutes
+![Top 10 named entities after 15 minutes](part1results/15mins.png)
+
+#### After 30 minutes
+![Top 10 named entities after 30 minutes](part1results/30mins.png)
+
+#### After 45 minutes
+![Top 10 named entities after 45 minutes](part1results/45mins.png)
+
+#### After 60 minutes
+![Top 10 named entities after 60 minutes](part1results/60mins.png)
 
 ### File Reference
 
@@ -145,15 +159,6 @@ undirected edges), and runs all five queries from Section 2.3:
 | 2.3d  | `part2_output/2_3d_top_components.txt`     | Top 5 connected components by vertex count                      |
 | 2.3e  | `part2_output/2_3e_top_triangles.txt`      | Top 5 vertices by triangle count (ties broken with seeded rand) |
 
----
-
-Submission contents
-Code: all the files listed above.
-Part 1 snapshots: `part1results/15mins.png`, `part1results/30mins.png`, `part1results/45mins.png`, `part1results/60mins.png`.
-Part 2 outputs: `part2_output/2_3*.txt` (five files).
-Reports / READMEs: this file (single readme covering both parts).
-
----
 
 ## Part 2 — Additional details
 
@@ -336,3 +341,14 @@ id    | name              | triangle_count
 > have the most triangle count connections or, in other words, have tight
 > community connections to fellow GitHub users and not just a lot of
 > followers.
+
+
+---
+
+Submission contents
+Code: all the files listed above.
+Part 1 snapshots: `part1results/15mins.png`, `part1results/30mins.png`, `part1results/45mins.png`, `part1results/60mins.png`.
+Part 2 outputs: `part2_output/2_3*.txt` (five files).
+Reports / READMEs: this file (single readme covering both parts).
+
+---
