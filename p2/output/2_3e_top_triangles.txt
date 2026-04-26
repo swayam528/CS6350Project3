@@ -1,0 +1,9 @@
+2.3e Top 5 vertices by triangle count (ties broken randomly)
+============================================================
+id    | name              | triangle_count
+------+-------------------+---------------
+27803 | nfultz            | 80286         
+31890 | dalinhuang99      | 63205         
+19222 | Bunlong           | 27873         
+35773 | addyosmani        | 22758         
+13638 | gabrielpconceicao | 19762         

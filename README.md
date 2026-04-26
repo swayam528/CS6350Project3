@@ -131,3 +131,34 @@ Output PNGs are saved to the `part1results/` directory.
 | `docker-compose.yml` | ZooKeeper, Kafka, Elasticsearch, Logstash, Kibana |
 | `logstash/pipeline/logstash.conf` | Logstash pipeline: `ner-counts` → Elasticsearch |
 | `requirements.txt` | Python dependencies |
+
+Part 2 — GraphFrames analysis of the musae-github network
+See the dedicated [p2/README.md](p2/README.md) for full details.
+
+Summary of the workflow:
+
+cd p2
+spark-submit \
+  --packages graphframes:graphframes:0.8.3-spark3.5-s_2.12 \
+  part2.py
+
+
+The single entrypoint downloads the SNAP musae-github archive, builds a
+property GraphFrame (37,700 vertices, 578,006 directed edges = 2 × 289,003
+undirected edges), and runs all five queries from Section 2.3:
+
+| Query | Output file                          | What it computes                                                |
+|-------|--------------------------------------|-----------------------------------------------------------------|
+| 2.3a  | p2/output/2_3a_top_outdegree.txt   | Top 5 vertices by outdegree                                     |
+| 2.3b  | p2/output/2_3b_top_indegree.txt    | Top 5 vertices by indegree                                      |
+| 2.3c  | p2/output/2_3c_top_pagerank.txt    | Top 5 vertices by PageRank (resetProbability=0.15, maxIter=10)|
+| 2.3d  | p2/output/2_3d_top_components.txt  | Top 5 connected components by vertex count                      |
+| 2.3e  | p2/output/2_3e_top_triangles.txt   | Top 5 vertices by triangle count (ties broken with seeded rand) |
+
+---
+
+Submission contents
+Code: all the files listed above.
+Part 1 snapshots: snapshot_15min.png, snapshot_30min.png,snapshot_45min.png, snapshot_60min.png.
+Part 2 outputs: p2/output/2_3*.txt (five files).
+Reports / READMEs: this file plus [p2/README.md](p2/README.md).
